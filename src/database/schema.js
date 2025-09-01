@@ -9,6 +9,7 @@ const timestamps = {
 
 export const vehicles_table = pgTable("vehicles",
     {
+        col_id: integer().generatedAlwaysAsIdentity({ name: "col_id", startsWith: 1, increment: 1, minValue: 1 }),
         vin: text({ length: 17 }).primaryKey(),
         manufacturer: text().notNull(),
         model: text().notNull(),
