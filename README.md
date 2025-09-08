@@ -42,8 +42,8 @@
 3. Set Up:
      - Clone the repository locally
      - Set up .env files wherever mentioned in the file structure above, and fill it using the format in .env.example
-     - Run docker compose up --build -d
-     - Make api calls to port as seen fit. The PORT defaults to 3000 on localhost.
+     - Run "docker compose up --build -d" to build and start the docker container.
+     - (The PORT defaults to 3000 on localhost.)
 
 4. Database Schema: /backend/database/schema.js
 5. How this system works:
