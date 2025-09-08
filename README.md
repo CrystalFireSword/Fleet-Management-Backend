@@ -1,7 +1,19 @@
 Fleet Management System - Backend
 
 1. File structure:
-  backend
+
+  /backend
+    - .dockerignore
+    - .env (to be added by the user before docker compose)
+    - .env.example
+    - .gitignore
+    - docker-compose.yml
+    - Dockerfile
+    - drizzle.config.js
+    - package-lock.json
+    - package.json
+    - run.sh
+    - server.js 
     /src
       /database
         - .env (to be added by the user before docker compose)
@@ -25,14 +37,4 @@ Fleet Management System - Backend
         - analytics_services.js
         - telemetry_services.js
         - vehicle_services.js
-    - .dockerignore
-    - .env (to be added by the user before docker compose)
-    - .env.example
-    - .gitignore
-    - docker-compose.yml
-    - Dockerfile
-    - drizzle.config.js
-    - package-lock.json
-    - package.json
-    - run.sh
-    - server.js 
+   
