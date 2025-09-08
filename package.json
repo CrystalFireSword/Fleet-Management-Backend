@@ -5,13 +5,16 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "db:studio": "npx drizzle-kit studio --config=drizzle.config.js",
+    "db:push": "npx drizzle-kit push --config=drizzle.config.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "dotenv": "^17.2.2",
     "drizzle-orm": "^0.36.0",
     "express": "^5.1.0",
     "pg": "^8.16.3",
