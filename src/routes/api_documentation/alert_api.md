@@ -11,7 +11,7 @@ ALERT API ENDPOINTS:
         curl --request GET \
         --url 'http://localhost:3000/api/alerts/all?type=low+fuel+or+battery&vin=4Y1SL65848Z411439&severity=high'
 
-2. GET /api/alerts/query/aid
+2. GET /api/alerts/query/:aid
     - Returns alert data for a specific alert id
     - Sample curl request:
         curl --request GET \
