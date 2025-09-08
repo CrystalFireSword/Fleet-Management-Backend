@@ -50,3 +50,8 @@
    - post npm ci in docker compose, the run.sh file executes the drizzle push to push the schema to db (which creates the tables), and runs npm run start
    - On npm run start, server.js first executes the trigger to run insert alerts on getting relevant telemetry data, then sets us API routes
    - API route functions are documentated in /backend/src/routes/api_documentation
+
+
+
+
+Note: The feature-wise branches have not been merged to main, instead checked out from one another in this order of building => database-and-basic-setup -> vehicles-api -> telemetry-api -> alerts-api -> analytics-api -> dockerisation-branch . new_branch is up to date with dockerisation-branch, the latest of all development branches, and is the branch from which PR has been raised to main.
