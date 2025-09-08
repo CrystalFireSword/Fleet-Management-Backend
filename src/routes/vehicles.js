@@ -16,7 +16,6 @@ router.get(`/`, async (req, res) => {
         res.status(200).json(vehicles)
     }
     catch (error) {
-        console.log("Error", error)
         res.status(400).json({ message: "Error:" + error })
     }
 })
@@ -28,7 +27,6 @@ router.get(`/all`, async (req, res) => {
         res.status(200).json(vehicles)
     }
     catch (error) {
-        console.log("Error", error)
         res.status(400).json({ message: "Error:" + error })
     }
 })
@@ -41,7 +39,6 @@ router.post('/', async (req, res) => {
         res.status(200).json({ message: "Success" + done })
     }
     catch (error) {
-        console.log("Error" + error)
         res.status(400).json({ message: "Error:" + error })
     }
 })
@@ -54,7 +51,6 @@ router.put(`/:vin`, async (req, res) => {
         res.status(200).json(vehicles)
     }
     catch (error) {
-        console.log("Error", error)
         res.status(400).json({ message: "Error:" + error })
     }
 })
@@ -67,7 +63,6 @@ router.delete(`/vin/:vin`, async (req, res) => {
         res.status(200).json(vehicles)
     }
     catch (error) {
-        console.log("Error", error)
         res.status(400).json({ message: "Error:" + error })
     }
 })
@@ -79,7 +74,6 @@ router.delete(`/query`, async (req, res) => {
         res.status(200).json(vehicles)
     }
     catch (error) {
-        console.log("Error", error)
         res.status(400).json({ message: "Error:" + error })
     }
 })
