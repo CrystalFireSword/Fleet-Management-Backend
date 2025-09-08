@@ -46,6 +46,7 @@ export const telemetry_table = pgTable("telemetry",
 
 export const alert_table = pgTable("alerts", {
     alert_id: integer().primaryKey().generatedAlwaysAsIdentity({ name: "alert_id", startsWith: 1, increment: 1, minValue: 1 }),
+    tid: integer().references(()=>telemetry_table.tid),
     type: text(),
     vin: text({ length: 17 }).references(() => vehicles_table.vin),
     value: numeric(),
