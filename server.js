@@ -4,13 +4,23 @@ import vehicle_router from "./src/routes/vehicles.js";
 import telemetry_router from "./src/routes/telemetry.js";
 import fleet_router from "./src/routes/fleet_analytics.js";
 import dotenv from "dotenv";
-import execute_trigger from "./src/database/trigger.js";
+import createAlertTrigger from "./src/database/alertTrigger.js";
 dotenv.config()
 
+/*initial limits for alerting conditions to trigger 
+alert creation based on telemetry data for speeding and
+low fuel or battery*/
 
+const fuelSeverityHighLB = 5
+const fuelSeverityHighUB = 15
+const speedSeverityLowLB = 100
+const speedSeverityLowUB = 500
+
+await createAlertTrigger(speedSeverityLowLB, speedSeverityLowUB, fuelSeverityHighLB, fuelSeverityHighUB)
+
+// server logic 
 const app = express();
 const port = process.env.PORT || 3000;
-await execute_trigger()
 app.use(express.json());
 app.use("/api/alerts", alert_router)
 app.use("/api/telemetry", telemetry_router)
@@ -20,6 +30,6 @@ app.get("/api/helloworld", (req, res, next) => {
     res.json(["Hello World!"]);
 })
 
-app.listen(port, ()=> {
+app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
 })
