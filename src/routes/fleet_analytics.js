@@ -20,7 +20,7 @@ router.get("/all/:fleetID", async (req, res, next)=>{
         res.status(200).json({data:{vehicleCountByState, averageFuelOrBatteryLevel, dist, alertSummary}})
     }
     catch(error){
-        throw error;
+        res.status(400).json({message:"Error: Failed to get analytics for the given fleet ID. Please find the following details about the error for debugging:"+error})
     }
 })
 
@@ -31,7 +31,7 @@ router.get("/vehicle_count_by_state/:fleetID", async (req, res, next)=>{
         res.status(200).json(vehicleCountByState)
     }
     catch(error){
-        res.status(400).json({message:"Error:"+error})
+        res.status(400).json({message:"Error: Failed to get state-wise vehicle count for the given fleet ID. Please find the following details about the error for debugging:"+error})
     }
 })
 
@@ -42,7 +42,7 @@ router.get("/total_distance_travelled_in_last_24_hours/:fleetID", async (req, re
         res.status(200).json(totalDistanceTravelledInLast24Hours)
     }
     catch(error){
-        res.status(400).json({message:"Error:"+error})
+        res.status(400).json({message:"Error: Failed to get the total distance travelled by vehicles in the last 24 hours for the given fleet ID. Please find the following details about the error for debugging:"+error})
     }
 })
 
@@ -53,7 +53,7 @@ router.get("/average_fuel_or_battery_level/:fleetID", async (req, res, next)=>{
         res.status(200).json(averageFuelOrBatteryLevel)
     }
     catch(error){
-        res.status(400).json({message:"Error:"+error})
+        res.status(400).json({message:"Error: Failed to get the average fuel/battery level for the given fleet ID. Please find the following details about the error for debugging:"+error})
     }
 })
 
@@ -64,7 +64,7 @@ router.get("/alert_summary/:fleetID", async (req, res, next)=>{
         res.status(200).json(alertSummary)
     }
     catch(error){
-        res.status(400).json({message:"Error:"+error})
+        res.status(400).json({message:"Error: Failed to get alert summary for the given fleet ID. Please find the following details about the error for debugging:"+error})
     }
 })
 

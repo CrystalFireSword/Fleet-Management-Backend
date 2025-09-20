@@ -17,7 +17,7 @@ router.get('/query', async (req, res, next)=>{
         res.status(200).json(filteredAlerts)
     }   
     catch(error){
-        res.status(400).json({message:"Error "+error})
+        res.status(400).json({message:"Error: Failed to get alert based on query filters. Please find the following details about the error for debugging: "+error})
     }
 })
 
@@ -27,7 +27,7 @@ router.get('/alert_id/:aid', async (req, res, next)=>{
         res.status(200).json(filteredAlerts)
     }   
     catch(error){
-        res.status(400).json({message:"Error "+error})
+        res.status(400).json({message:"Error: Failed to get alert by alert ID. Please find the following details about the error for debugging: "+error})
     }
 })
 

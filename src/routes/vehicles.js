@@ -16,7 +16,7 @@ router.get(`/`, async (req, res) => {
         res.status(200).json(vehicles)
     }
     catch (error) {
-        res.status(400).json({ message: "Error:" + error })
+        res.status(400).json({ message: "Error: Failed to get vehicle data based on given query parameters. Please find the following details about the error for debugging:" + error })
     }
 })
 
@@ -27,7 +27,7 @@ router.get(`/all`, async (req, res) => {
         res.status(200).json(vehicles)
     }
     catch (error) {
-        res.status(400).json({ message: "Error:" + error })
+        res.status(400).json({ message: "Error: Failed to get vehicle data. Please find the following details about the error for debugging:" + error })
     }
 })
 
@@ -39,7 +39,7 @@ router.post('/', async (req, res) => {
         res.status(200).json({ message: "Success" + result })
     }
     catch (error) {
-        res.status(400).json({ message: "Error:" + error })
+        res.status(400).json({ message: "Error: Failed to insert vehicle data. Please find the following details about the error for debugging:" + error })
     }
 })
 
@@ -51,7 +51,7 @@ router.put(`/:vin`, async (req, res) => {
         res.status(200).json(result)
     }
     catch (error) {
-        res.status(400).json({ message: "Error:" + error })
+        res.status(400).json({ message: "Error: Failed to update vehicle data. Please find the following details about the error for debugging:" + error })
     }
 })
 
@@ -62,7 +62,7 @@ router.delete(`/vin/:vin`, async (req, res) => {
         res.status(200).json(result)
     }
     catch (error) {
-        res.status(400).json({ message: "Error:" + error })
+        res.status(400).json({ message: "Error: Failed to delete vehicle for the given vehicle. Please find the following details about the error for debugging:" + error })
     }
 })
 
@@ -73,7 +73,7 @@ router.delete(`/query`, async (req, res) => {
         res.status(200).json(result)
     }
     catch (error) {
-        res.status(400).json({ message: "Error:" + error })
+        res.status(400).json({ message: "Error: Failed to delete vehicle data based on given query parameters. Please find the following details about the error for debugging:" + error })
     }
 })
 export default router

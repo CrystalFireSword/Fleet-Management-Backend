@@ -18,7 +18,7 @@ router.post('/:vin', async (req, res, next)=>{
         res.status(200).json(writeStatus)
     }
     catch (error){
-        res.status(400).json({message:"ERROR"+error})
+        res.status(400).json({message:"Error: Failed to insert telemetry data for the given vin. Please find the following details about the error for debugging:"+error})
     }
 })
 
@@ -29,7 +29,7 @@ router.post('/', async (req, res, next)=>{
         res.status(200).json(writeStatus)
     }
     catch (error){
-        res.status(400).json({message:"ERROR"+error})
+        res.status(400).json({message:"Error: Failed to insert telemetry data. Please find the following details about the error for debugging:"+error})
     }
 })
 
@@ -40,7 +40,7 @@ router.get('/query/history', async (req, res, next)=>{
         res.status(200).json(filteredTelemetryHistory)
     }   
     catch(error){
-        res.status(400).json({message:"Error "+error})
+        res.status(400).json({message:"Error: Failed to get telemetry history based on the given query parameters. Please find the following details about the error for debugging: "+error})
     }
 })
 
@@ -51,7 +51,7 @@ router.get('/query/latest', async (req, res, next)=>{
         res.status(200).json(filteredTelemetryLatest)
     }   
     catch(error){
-        res.status(400).json({message:"Error "+error})
+        res.status(400).json({message:"Error: Failed to get latest telmetry based on the given query parameters. Please find the following details about the error for debugging:"+error})
     }
 })
 
