@@ -61,4 +61,4 @@ async function createAlertTrigger(speedSeverityLowLB = 100, speedSeverityLowUB =
     }
 }
 
-export default execute_trigger;
+export default createAlertTrigger;

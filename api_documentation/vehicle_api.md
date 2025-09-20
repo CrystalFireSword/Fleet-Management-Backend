@@ -72,7 +72,6 @@ API End Points:
     - Takes {vin, manufacturer, model, fleet_id, o_info, reg_status, fleet_type} as request body
     - SAMPLE REQUEST BODY FORMAT:
         {
-        "vin": "4Y1SL65848Z411439,
         "manufacturer":"Manufacturer 1": ,
         "model": "Model 2",
         "fleet_id": "F00001",

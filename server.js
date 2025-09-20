@@ -1,8 +1,8 @@
 import express from "express";
-import alert_router from "./src/routes/alert.js";
-import vehicle_router from "./src/routes/vehicles.js";
-import telemetry_router from "./src/routes/telemetry.js";
-import fleet_router from "./src/routes/fleet_analytics.js";
+import alertRouter from "./src/routes/alert.js";
+import vehicleRouter from "./src/routes/vehicles.js";
+import telemetryRouter from "./src/routes/telemetry.js";
+import fleetAnalyticsRouter from "./src/routes/fleet_analytics.js";
 import dotenv from "dotenv";
 import createAlertTrigger from "./src/database/alertTrigger.js";
 dotenv.config()
@@ -22,10 +22,10 @@ await createAlertTrigger(speedSeverityLowLB, speedSeverityLowUB, fuelSeverityHig
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(express.json());
-app.use("/api/alerts", alert_router)
-app.use("/api/telemetry", telemetry_router)
-app.use("/api/vehicles", vehicle_router)
-app.use("/api/fleet_analytics", fleet_router)
+app.use("/api/alerts", alertRouter)
+app.use("/api/telemetry", telemetryRouter)
+app.use("/api/vehicles", vehicleRouter)
+app.use("/api/fleet_analytics", fleetAnalyticsRouter)
 app.get("/api/helloworld", (req, res, next) => {
     res.json(["Hello World!"]);
 })

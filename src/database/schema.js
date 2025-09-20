@@ -7,7 +7,7 @@ const timestamps = {
     deleted_at: timestamp(),
 }
 
-export const vehicles_table = pgTable("vehicles",
+export const vehiclesTable = pgTable("vehicles",
     {
         col_id: integer().generatedAlwaysAsIdentity({ name: "col_id", startsWith: 1, increment: 1, minValue: 1 }),
         vin: text({ length: 17 }).primaryKey(),
@@ -25,10 +25,10 @@ export const vehicles_table = pgTable("vehicles",
     ]
 )
 
-export const telemetry_table = pgTable("telemetry",
+export const telemetryTable = pgTable("telemetry",
     {
         tid: integer().primaryKey().generatedAlwaysAsIdentity({ name: "tid", startsWith: 1, increment: 1, minValue: 1 }),
-        vin: text({ length: 17 }).references(() => vehicles_table.vin),
+        vin: text({ length: 17 }).references(() => vehiclesTable.vin),
         latitude: numeric(),
         longitude: numeric(),
         speed: numeric(),
@@ -44,11 +44,11 @@ export const telemetry_table = pgTable("telemetry",
     ]
 )
 
-export const alert_table = pgTable("alerts", {
+export const alertTable = pgTable("alerts", {
     alert_id: integer().primaryKey().generatedAlwaysAsIdentity({ name: "alert_id", startsWith: 1, increment: 1, minValue: 1 }),
-    tid: integer().references(()=>telemetry_table.tid),
+    tid: integer().references(()=>telemetryTable.tid),
     type: text(),
-    vin: text({ length: 17 }).references(() => vehicles_table.vin),
+    vin: text({ length: 17 }).references(() => vehiclesTable.vin),
     value: numeric(),
     severity: text(),
     ...timestamps

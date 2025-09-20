@@ -1,15 +1,15 @@
 import { time } from "drizzle-orm/mysql-core";
 import db from "../database/db.js"
-import { telemetry_table } from "../database/schema.js";
+import { telemetryTable } from "../database/schema.js";
 import { like, and, eq, sql, gte } from 'drizzle-orm';
 import { QueryBuilder, timestamp } from 'drizzle-orm/pg-core';
 
-export async function insert_telemetry_one_vehicle(telemetry_data) {
+export async function insertOneTelemetryRecord(telemetryData) {
     try {
-        for (let telemetry of telemetry_data){
+        for (let telemetry of telemetryData){
             telemetry["timestamp"] = new Date(telemetry["timestamp"])
         }
-        const inserted = await db.insert(telemetry_table).values(telemetry_data);
+        const inserted = await db.insert(telemetryTable).values(telemetryData);
         return inserted;
     }
     catch(error){
@@ -17,12 +17,12 @@ export async function insert_telemetry_one_vehicle(telemetry_data) {
     }
 }
 
-export async function insert_telemetry_multiple_vehicles(telemetry_data) {
+export async function insertManyTelemetryRecords(telemetryData) {
     try {
-         for (let telemetry of telemetry_data){
+         for (let telemetry of telemetryData){
             telemetry["timestamp"] = new Date(telemetry["timestamp"])
         }
-        const inserted = await db.insert(telemetry_table).values(telemetry_data);
+        const inserted = await db.insert(telemetryTable).values(telemetryData);
         return inserted;
     }
     catch(error){
@@ -39,49 +39,49 @@ export async function insert_telemetry_multiple_vehicles(telemetry_data) {
 //         engine_status
 //             } = req.query
 
-export async function query_telemetry_history(telemetry_filters, vin=null) {
+export async function getFilteredTelemetryHistory(telemetryFilters, vin=null) {
     try {
-        const filtered_columns = []
-        if (telemetry_filters["vin"]){
-            filtered_columns.push(like(telemetry_table.vin, `%${telemetry_filters["vin"]}%`))
+        const filteredColumns = []
+        if (telemetryFilters["vin"]){
+            filteredColumns.push(eq(telemetryTable.vin, `${telemetryFilters["vin"]}`))
         }
-        // if (Array.isArray(telemetry_filters["diagnostic_codes"])){
+        // if (Array.isArray(telemetryFilters["diagnostic_codes"])){
         //     console.log("diagnostic_codes")
-        //     telemetry_filters["diagnostic_codes"] = JSON.parse(telemetry_filters["diagnostic_codes"])
-        //     for (const dc of telemetry_filters["diagnostic_codes"]){
-        //         filtered_columns.push(eq(telemetry_table.diagnostic_code, `${dc}`))
+        //     telemetryFilters["diagnostic_codes"] = JSON.parse(telemetryFilters["diagnostic_codes"])
+        //     for (const dc of telemetryFilters["diagnostic_codes"]){
+        //         filteredColumns.push(eq(telemetryTable.diagnostic_code, `${dc}`))
         //     }
         // }
-        if (telemetry_filters["engine_status"]){
-            filtered_columns.push(like(telemetry_table.engine_status, `%${telemetry_filters["engine_status"]}%`))
+        if (telemetryFilters["engine_status"]){
+            filteredColumns.push(eq(telemetryTable.engine_status, `${telemetryFilters["engine_status"]}`))
         }
-        if (telemetry_filters["time_start"]){
-            filtered_columns.push(sql`${telemetry_table.timestamp} >= ${telemetry_filters["time_start"]} `)
+        if (telemetryFilters["time_start"]){
+            filteredColumns.push(sql`${telemetryTable.timestamp} >= ${telemetryFilters["time_start"]} `)
         }
-        if (telemetry_filters["time_end"]){
-            filtered_columns.push(sql`${telemetry_table.timestamp} <= ${telemetry_filters["time_end"]} `)
+        if (telemetryFilters["time_end"]){
+            filteredColumns.push(sql`${telemetryTable.timestamp} <= ${telemetryFilters["time_end"]} `)
         }
-        if (telemetry_filters["fuel_min"]){
-            filtered_columns.push(sql`${telemetry_table.fuel_or_battery_level} >= ${telemetry_filters["fuel_min"]} `)
+        if (telemetryFilters["fuel_min"]){
+            filteredColumns.push(sql`${telemetryTable.fuel_or_battery_level} >= ${telemetryFilters["fuel_min"]} `)
         }
-        if (telemetry_filters["fuel_max"]){
-            filtered_columns.push(sql`${telemetry_table.fuel_or_battery_level} <= ${telemetry_filters["fuel_max"]} `)
+        if (telemetryFilters["fuel_max"]){
+            filteredColumns.push(sql`${telemetryTable.fuel_or_battery_level} <= ${telemetryFilters["fuel_max"]} `)
         }
-        if (telemetry_filters["speed_min"]){
-            filtered_columns.push(sql`${telemetry_table.speed} >= ${telemetry_filters["speed_min"]} `)
+        if (telemetryFilters["speed_min"]){
+            filteredColumns.push(sql`${telemetryTable.speed} >= ${telemetryFilters["speed_min"]} `)
         }
-        if (telemetry_filters["speed_max"]){
-            filtered_columns.push(sql`${telemetry_table.speed} <= ${telemetry_filters["speed_max"]} `)
+        if (telemetryFilters["speed_max"]){
+            filteredColumns.push(sql`${telemetryTable.speed} <= ${telemetryFilters["speed_max"]} `)
         }
 
         let query = db
             .select()
-            .from(telemetry_table)
-            .where(and(...filtered_columns))
-            .orderBy(telemetry_table.tid);
+            .from(telemetryTable)
+            .where(and(...filteredColumns))
+            .orderBy(telemetryTable.tid);
 
-        const filtered_data = await query;
-        return filtered_data
+        const filteredData = await query;
+        return filteredData
     }
     catch(error){
         throw error
@@ -98,45 +98,45 @@ export async function query_telemetry_history(telemetry_filters, vin=null) {
 //       } = req.query
 
 
-export async function query_telemetry_latest(telemetry_filters, vin=null) {
+export async function getFilteredTelemetryLatest(telemetryFilters, vin=null) {
     try {
-        const filtered_columns = []
-        if (telemetry_filters["vin"]){
-            filtered_columns.push(eq(telemetry_table.vin, `${telemetry_filters["vin"]}`))
+        const filteredColumns = []
+        if (telemetryFilters["vin"]){
+            filteredColumns.push(eq(telemetryTable.vin, `${telemetryFilters["vin"]}`))
         }
-        if (telemetry_filters["engine_status"]){
-            filtered_columns.push(eq(telemetry_table.engine_status, `${telemetry_filters["engine_status"]}`))
+        if (telemetryFilters["engine_status"]){
+            filteredColumns.push(eq(telemetryTable.engine_status, `${telemetryFilters["engine_status"]}`))
         }
-        if (telemetry_filters["days"]){
-            filtered_columns.push(gte(telemetry_table.timestamp, sql.raw(`NOW() - INTERVAL '${telemetry_filters["days"]} days'`) ))
+        if (telemetryFilters["days"]){
+            filteredColumns.push(gte(telemetryTable.timestamp, sql.raw(`NOW() - INTERVAL '${telemetryFilters["days"]} days'`) ))
         }
-        if (telemetry_filters["fuel_min"]){
-            filtered_columns.push(sql`${telemetry_table.fuel_or_battery_level} >= ${telemetry_filters["fuel_min"]} `)
+        if (telemetryFilters["fuel_min"]){
+            filteredColumns.push(sql`${telemetryTable.fuel_or_battery_level} >= ${telemetryFilters["fuel_min"]} `)
         }
-        if (telemetry_filters["fuel_max"]){
-            filtered_columns.push(sql`${telemetry_table.fuel_or_battery_level} <= ${telemetry_filters["fuel_max"]} `)
+        if (telemetryFilters["fuel_max"]){
+            filteredColumns.push(sql`${telemetryTable.fuel_or_battery_level} <= ${telemetryFilters["fuel_max"]} `)
         }
-        if (telemetry_filters["speed_min"]){
-            filtered_columns.push(sql`${telemetry_table.speed} >= ${telemetry_filters["speed_min"]} `)
+        if (telemetryFilters["speed_min"]){
+            filteredColumns.push(sql`${telemetryTable.speed} >= ${telemetryFilters["speed_min"]} `)
         }
-        if (telemetry_filters["speed_max"]){
-            filtered_columns.push(sql`${telemetry_table.speed} <= ${telemetry_filters["speed_max"]} `)
+        if (telemetryFilters["speed_max"]){
+            filteredColumns.push(sql`${telemetryTable.speed} <= ${telemetryFilters["speed_max"]} `)
         }
 
         let query = db
             .select()
-            .from(telemetry_table)
-            .where(and(...filtered_columns))
-            .orderBy(telemetry_table.tid);
+            .from(telemetryTable)
+            .where(and(...filteredColumns))
+            .orderBy(telemetryTable.tid);
 
-        if (telemetry_filters["limit"]){
-            query = query.limit(parseInt(telemetry_filters["limit"]))
+        if (telemetryFilters["limit"]){
+            query = query.limit(parseInt(telemetryFilters["limit"]))
         }
-        if (telemetry_filters["offset"]){
-            query = query.offset(parseInt(telemetry_filters["offset"]))
+        if (telemetryFilters["offset"]){
+            query = query.offset(parseInt(telemetryFilters["offset"]))
         }
-        const filtered_data = await query;
-        return filtered_data
+        const filteredData = await query;
+        return filteredData
     }
     catch(error){
         throw error
