@@ -33,16 +33,16 @@ API ENDPOINTS FOR FLEET-LEVEL ANALYTICS
     - This logic fails when there is sparse telemetry data in the 24 hour interval, so in 24 hours, if only two records are received, one in the 15th hour and one in the 22nd hour (relative to the last 24hrs), this difference will return only the difference in the distance covered in the 6 hours between the 15th and 22nd hour, and not the entire distance travelled in the last 24 hours
     - Sample response:
         {
-        "totalDistanceTravelledInLast24Hours": "240"
+        "total_distance_travelled_in_last_24_hours": "240"
         }
 
 4. GET api/fleet_analytics/vehicle_count_by_state/:fleet_id
     - gives the count of active, inactive and total vehicles (checks for availability of telemetry in last 24 hours)
     - Sample response:
         - {
-            "activeVehicleCount": 2,
-            "inactiveVehicleCount": 2,
-            "totalVehicleCount": 4
+            "active_vehicle_count": 2,
+            "inactive_vehicle_count": 2,
+            "total_vehicle_count": 4
           }
 
 5. GET api/fleet_analytics/all/:fleet_id
@@ -52,12 +52,12 @@ API ENDPOINTS FOR FLEET-LEVEL ANALYTICS
     {
   "data": {
     "vehicleCountByState": {
-      "activeVehicleCount": 0,
-      "inactiveVehicleCount": 2,
-      "totalVehicleCount": 2
+      "active_vehicles": "0",
+      "inactive_vehicles": "2",
+      "total_vehicles": "2"
     },
     "averageFuelOrBatteryLevel": {
-      "averagefuelorbatterylevel": "12.5000000000000000"
+      "average_fuel_or_batterylevel": "12.5000000000000000"
     },
     "dist": {
       "total_distance_travelled_in_last_24_hours": null
@@ -67,15 +67,14 @@ API ENDPOINTS FOR FLEET-LEVEL ANALYTICS
         "fleet_id": "F00001",
         "type": "low fuel or battery",
         "severity": "high",
-        "count": "1"
+        "count": "5"
       },
       {
         "fleet_id": "F00001",
         "type": "speed violation",
         "severity": "high",
-        "count": "1"
+        "count": "5"
       }
     ]
   }
 }
-    
