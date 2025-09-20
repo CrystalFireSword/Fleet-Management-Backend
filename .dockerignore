@@ -1,0 +1,7 @@
+/node_modules
+/.env
+/src/database/notes.txt
+/src/database/.env
+/src/database/cleardb.js
+/src/database/seed.js
+
